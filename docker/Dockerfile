@@ -21,8 +21,7 @@ RUN curl -L https://raw.githubusercontent.com/algorand/go-algorand/rel/stable/cm
     chmod -v 744 ./update.sh && \
     mkdir node && \
     ./update.sh -i -c stable -p node -d node/_data -n && \
-    rm -rf node/_data && \
-    /algorand/node/goal version -v
+    rm -rf node/_data
 
 ADD ./scripts ./
 
