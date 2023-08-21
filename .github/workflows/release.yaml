@@ -32,7 +32,9 @@ jobs:
           file: ./docker/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: activadigital/algon:latest
+          tags: |
+            activadigital/algon:stable
+            activadigital/algon:3.17.0
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
