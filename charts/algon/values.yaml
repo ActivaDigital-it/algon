@@ -3,11 +3,11 @@
 replicaCount: 1
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 8080
 
 ingress:
-  enabled: true
+  enabled: false
   annotations:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
@@ -107,7 +107,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  repository: randmeister/algon
+  repository: activadigital/algon
   tag: stable
   pullPolicy: Always
 
@@ -143,7 +143,7 @@ resources:
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 100
+  maxReplicas: 5
   targetCPUUtilizationPercentage: 80
 
 nodeSelector: {}
