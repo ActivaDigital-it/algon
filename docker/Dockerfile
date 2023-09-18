@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # kubectl & curl
 RUN apt update && \
-    apt install -y curl ca-certificates jq bash && \
+    apt install -y curl ca-certificates jq bash bind9-dnsutils && \
     apt clean && \
     rm -rf /var/lib/apt/lists/* && \
     curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.26.7/bin/linux/amd64/kubectl && \
