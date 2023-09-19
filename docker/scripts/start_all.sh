@@ -24,7 +24,7 @@ fi
 export token=
 
 # Fast catchup
-/algorand/node/goal node catchup
+/algorand/node/goal node catchup --force
 
 # Write node.log to stdout
 tail -f ${ALGORAND_DATA}/node.log
