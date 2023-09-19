@@ -40,7 +40,7 @@ algorand:
       ConnectionsRateLimitingCount: 60
       ConnectionsRateLimitingWindowSeconds: 1
       DNSBootstrapID: "testnet.algorand.network"
-      DNSSecurityFlags: 1
+      DNSSecurityFlags: 0
       DeadlockDetection: 0
       DisableOutgoingConnectionThrottling: false
       EnableAgreementReporting: false
