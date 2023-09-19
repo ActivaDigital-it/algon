@@ -24,13 +24,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Get Chart version
-        run: echo ::set-output name=version::$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d " ")
-        id: chart
-        shell: bash
-
-      - name: Version
-        run: echo ${{ steps.chart.outputs.version }}
+      - name: Chart version
+        run: |
+          echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')" >> "$GITHUB_ENV"
+          echo "${ CHART_VERSION }"
 
       - name: Build and push
         id: docker_build
@@ -42,7 +39,7 @@ jobs:
           push: true
           tags: |
             activadigital/algon:stable
-            activadigital/algon:${{ steps.chart.outputs.version }}
+            activadigital/algon:${{ env.CHART_VERSION }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
