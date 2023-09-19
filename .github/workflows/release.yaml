@@ -8,23 +8,31 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+
+      - name: Checkout
         uses: actions/checkout@v3
-      -
-        name: Set up QEMU
+
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-      -
-        name: Set up Docker Buildx
+
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      -
-        name: Login to DockerHub
+
+      - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
+
+      - name: Get Chart version
+        run: echo ::set-output name=version::$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d " ")
+        id: chart
+        shell: bash
+
+      - name: Version
+        run: echo ${{ steps.chart.outputs.version }}
+
+      - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v4
         with:
@@ -34,9 +42,9 @@ jobs:
           push: true
           tags: |
             activadigital/algon:stable
-            activadigital/algon:3.17.0
-      -
-        name: Image digest
+            activadigital/algon:${{ steps.chart.outputs.version }}
+
+      - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   
   chart:
