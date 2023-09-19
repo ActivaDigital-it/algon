@@ -11,14 +11,4 @@ entries:
     urls:
     - https://github.com/ActivaDigital-it/algon/releases/download/algon-3.18.3/algon-3.18.3.tgz
     version: 3.18.3
-  - apiVersion: v2
-    appVersion: 3.17.0
-    created: "2023-08-21T14:57:07.367011454Z"
-    description: Stable channel Algorand node helm chart
-    digest: 6ce48feb6dbcc2418613daa3d0c171fa8bed4cf4b0ed3c848c058b26a0c4e96e
-    name: algon
-    type: application
-    urls:
-    - https://github.com/ActivaDigital-it/algon/releases/download/algon-3.17.0/algon-3.17.0.tgz
-    version: 3.17.0
 generated: "2023-09-19T12:33:50.309359192Z"
