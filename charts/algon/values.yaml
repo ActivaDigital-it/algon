@@ -109,7 +109,7 @@ fullnameOverride: ""
 image:
   repository: activadigital/algon
   tag: stable
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 serviceAccount:
   create: true
