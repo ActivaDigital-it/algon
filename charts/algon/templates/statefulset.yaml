@@ -46,7 +46,6 @@ spec:
       serviceAccountName: {{ include "algon.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      hostNetwork: true
       initContainers:
         - name: allow-data-writes
           image: alpine
@@ -60,7 +59,7 @@ spec:
             mountPath: /algorand/node/data
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.Version }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["sh", "-c", "./start_all.sh"]
           securityContext:
