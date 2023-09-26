@@ -67,9 +67,9 @@ algorand:
       IncomingMessageFilterBucketSize: 512
       IsIndexerActive: false
       LedgerSynchronousMode: 2
-      LogArchiveMaxAge: ""
+      LogArchiveMaxAge: "1h"
       LogArchiveName: "node.archive.log"
-      LogSizeLimit: 1073741824
+      LogSizeLimit: 104857600
       MaxCatchpointDownloadDuration: 7200000000000
       MaxConnectionsPerIP: 30
       MinCatchpointFileDownloadBytesPerSecond: 20480
