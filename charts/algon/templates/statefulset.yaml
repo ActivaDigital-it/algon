@@ -1,3 +1,4 @@
+{{- $fullName := include "algon.fullname" . -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -39,7 +40,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: algon-configmap
+            name: {{ $fullName }}-configmap
       serviceAccountName: {{ include "algon.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
