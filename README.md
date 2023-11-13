@@ -19,6 +19,22 @@ Algorand node stable channel helm chart compatible with testnet and mainnet.
 - helm https://helm.sh/docs/intro/install/
 - jq https://stedolan.github.io/jq/download/
 
+### Outgoing connections
+
+The node must be able to reach:
+
+1. GitHub over HTTPS to get the consensus protocols
+   - <https://github.com/algorandfoundation/specs/tree/*>
+2. AmazonAWS over HTTPS to get fast catchup's catchpoints
+   - TestNet: <https://algorand-catchpoints.s3.us-east-2.amazonaws.com/channel/testnet/latest.catchpoint>
+   - MainNet: <https://algorand-catchpoints.s3.us-east-2.amazonaws.com/channel/mainnet/latest.catchpoint>
+3. Relay nodes over TCP ports 4160 (mainnet) and 4161 (testnet); to get the list of relay nodes use these DNS queries:
+   - TestNet: `dig _algobootstrap._tcp.testnet.algorand.network SRV +short`
+   - MainNet: `dig _algobootstrap._tcp.mainnet.algorand.network SRV +short`
+   All relay nodes should be:
+   - MainNet: `*.algorand-mainnet.network`
+   - TestNet: `*.algorand-testnet.network`
+
 ## Install
 
 ```sh
