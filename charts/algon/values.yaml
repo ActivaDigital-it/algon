@@ -23,8 +23,8 @@ algorand:
       DNSSecurityFlags: 0
       LogArchiveMaxAge: "1h"
       LogArchiveName: "node.archive.log"
-      LogSizeLimit: 104857600
-      NodeExporterListenAddress: ":9200"
+      LogSizeLimit: 0
+      NodeExporterListenAddress: ":9100"
       NodeExporterPath: "./node_exporter"
 
 imagePullSecrets: []
@@ -78,4 +78,4 @@ tolerations: []
 affinity: {}
 
 storage:
-  size: 5Gi
+  size: 10Gi
