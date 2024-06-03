@@ -20,6 +20,7 @@ algorand:
   network: testnet
   config:
     algod:
+      Version: 33
       DNSSecurityFlags: 0
       LogArchiveMaxAge: "1h"
       LogArchiveName: "node.archive.log"
