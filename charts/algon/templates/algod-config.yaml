@@ -1,8 +1,0 @@
-{{- $fullName := include "algon.fullname" . -}}
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ $fullName }}-configmap
-data:
-  config.json: {{ .Values.algorand.config.algod | toJson | quote }} 
-    
