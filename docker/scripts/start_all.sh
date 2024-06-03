@@ -27,5 +27,5 @@ export token=
 /algorand/node/goal node status
 /algorand/node/goal node catchup --force &
 
-# Write node.log to stdout
-tail -f ${ALGORAND_DATA}/node.log
+# Do not kill the pod
+sleep infinity
