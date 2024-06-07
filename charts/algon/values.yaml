@@ -34,7 +34,7 @@ fullnameOverride: ""
 
 image:
   repository: activadigital/algon
-  tag: 3.24.0
+  tag: 3.24.2
   pullPolicy: IfNotPresent
 
 serviceAccount:
@@ -79,4 +79,4 @@ tolerations: []
 affinity: {}
 
 storage:
-  size: 10Gi
+  size: 50Gi
