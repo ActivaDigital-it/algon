@@ -83,8 +83,8 @@ curl http://$ALGON_IP:8080/v2/status -H  "X-Algo-API-Token: $ALGON_API_TOKEN" -v
 
 ## Docker Image
 
-The algon docker image is hosted on docker hub: https://hub.docker.com/r/activadigital/algon
+The algon docker image is hosted on GHCR:
 
 ```
-docker pull activadigital/algon
+docker pull ghcr.io/activadigital-it/algon
 ```
