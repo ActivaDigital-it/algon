@@ -50,6 +50,7 @@ jobs:
           provenance: false
           tags: |
             ghcr.io/activadigital-it/algon:stable
+            ghcr.io/activadigital-it/algon:latest
             ghcr.io/activadigital-it/algon:${{ env.CHART_VERSION }}
 
       - name: Image digest
