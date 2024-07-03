@@ -33,8 +33,8 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  repository: activadigital/algon
-  tag: 3.25.2
+  repository: ghcr.io/activadigital-it/algon
+  tag: 3.25.3
   pullPolicy: IfNotPresent
 
 serviceAccount:
