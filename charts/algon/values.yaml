@@ -34,7 +34,7 @@ fullnameOverride: ""
 
 image:
   repository: activadigital/algon
-  tag: 3.25.2s
+  tag: 3.25.2
   pullPolicy: IfNotPresent
 
 serviceAccount:
