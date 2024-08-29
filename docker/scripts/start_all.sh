@@ -8,7 +8,7 @@ cp node/genesisfiles/${ALGORAND_NETWORK}/genesis.json ${ALGORAND_DATA}
 sleep 5
 
 # Store algod.token and algod.admin.token in kubernetes secret. Tokens are shared among node instances when replicas are greater than 1. 
-export token=`kubectl get secrets/algon-api-token -o json  | jq .data | jq -r '."algod.token"'`
+export token=`kubectl get secrets/algon-api-token -o json  | jq .data | jq -r '."algod.token"' | base64 -d`
 if [ "$token" = "null" ]; then
     kubectl create secret generic algon-api-token \
                 --from-file=node/data/algod.token \
