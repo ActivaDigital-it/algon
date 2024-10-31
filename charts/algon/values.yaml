@@ -35,7 +35,8 @@ fullnameOverride: ""
 
 image:
   repository: ghcr.io/activadigital-it/algon
-  tag: 3.25.4
+  # Defaults to Chart appVersion
+  # tag:
   pullPolicy: IfNotPresent
 
 serviceAccount:
