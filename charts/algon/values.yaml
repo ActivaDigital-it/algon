@@ -21,6 +21,7 @@ algorand:
   config:
     algod:
       Version: 33
+      BaseLoggerDebugLevel: 3
       DNSSecurityFlags: 0
       LogArchiveMaxAge: "1h"
       LogArchiveName: "node.archive.log"
