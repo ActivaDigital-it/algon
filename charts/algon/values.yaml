@@ -20,7 +20,7 @@ algorand:
   network: testnet
   config:
     algod:
-      Version: 33
+      Version: 35
       BaseLoggerDebugLevel: 3
       DNSSecurityFlags: 0
       LogArchiveMaxAge: "1h"
