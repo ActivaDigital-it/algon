@@ -32,8 +32,9 @@ echo "INFO: Algod Node current status"
 echo "INFO: Fast catchup only if more than 10000 rounds are missing."
 /algorand/node/goal node catchup --force -m 10000 &
 
+sleep 1
 # Do not kill the pod and print a JSON status line every minute
 while true; do
-    curl --location "http://localhost:8080/v2/status?format=json" --header 'Content-Type: application/json' --header 'Accept: application/json' --header "X-Algo-API-Token: ${ALGON_TOKEN}"
+    curl -sS --location "http://localhost:8080/v2/status?format=json" --header 'Content-Type: application/json' --header 'Accept: application/json' --header "X-Algo-API-Token: ${ALGON_TOKEN}"
     sleep 60
 done
