@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   algon:
   - apiVersion: v2
+    appVersion: 4.0.1
+    created: "2025-02-12T10:28:00.302221608Z"
+    description: Stable channel Algorand node helm chart
+    digest: 4b0459635de8cfadffabaad0afdfbd00e42f56da041134fd8bf0321d9924034e
+    name: algon
+    type: application
+    urls:
+    - https://github.com/ActivaDigital-it/algon/releases/download/algon-4.0.1/algon-4.0.1.tgz
+    version: 4.0.1
+  - apiVersion: v2
     appVersion: 4.0.1-alpha
     created: "2025-02-11T16:22:32.693938678Z"
     description: Stable channel Algorand node helm chart
@@ -151,4 +161,4 @@ entries:
     urls:
     - https://github.com/ActivaDigital-it/algon/releases/download/algon-3.19.1/algon-3.19.1.tgz
     version: 3.19.1
-generated: "2025-02-11T16:22:32.69407859Z"
+generated: "2025-02-12T10:28:00.302331654Z"
