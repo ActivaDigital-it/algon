@@ -36,8 +36,8 @@ jobs:
 
       - name: Get Chart version
         run: |
-          echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')" >> "$GITHUB_ENV"
-          echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')"
+          echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
+          echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
 
       - name: Build and push
         id: docker_build
