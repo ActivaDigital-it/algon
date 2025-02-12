@@ -70,8 +70,14 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
 
+
+      - name: modify chart alpha version
+        run: |
+          CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha
+          sed -i s/version:.*/version:\ $CHART_VERSION/g charts/algon/Chart.yaml
+          sed -i s/appVersion:.*/appVersion:\ $CHART_VERSION/g charts/algon/Chart.yaml
+        
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.5.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          CR_RELEASE_NAME_TEMPLATE: "{{ .Name }}-{{ .Version }}-alpha"
