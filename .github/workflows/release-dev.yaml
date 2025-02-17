@@ -38,7 +38,8 @@ jobs:
         run: |
           echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
           echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
-
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')" >> "$GITHUB_ENV"
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')"
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v5
@@ -49,7 +50,7 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ghcr.io/activadigital-it/algon:${{ env.CHART_VERSION }}
+            ghcr.io/activadigital-it/algon:${{ env.APP_VERSION }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
