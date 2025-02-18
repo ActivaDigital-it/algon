@@ -1,5 +1,5 @@
 FROM ubuntu:22.04
-
+# 4-0-1
 EXPOSE 8080 9100
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -9,7 +9,7 @@ RUN apt update && \
     apt install -y curl ca-certificates jq bash bind9-dnsutils && \
     apt clean && \
     rm -rf /var/lib/apt/lists/* && \
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.26.7/bin/linux/amd64/kubectl && \
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
     chmod +x ./kubectl && \
     mv ./kubectl /usr/bin/kubectl
 

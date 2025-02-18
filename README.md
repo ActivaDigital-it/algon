@@ -88,3 +88,40 @@ The algon docker image is hosted on GHCR:
 ```
 docker pull ghcr.io/activadigital-it/algon
 ```
+
+## "goal node status" output
+
+### Catching up
+
+```shell
+root@algon-0:/algorand/node# ./goal node status
+Last committed block: 45350850
+Sync Time: 1852.7s
+Catchpoint: 45340000#GRJKAFLZKHGSNFTFJ6CGYF5V6ANVAEBKTMTFPTPWMH5DKBJEFWWQ
+Catchpoint total accounts: 2123933
+Catchpoint accounts processed: 2123933
+Catchpoint accounts verified: 2123933
+Catchpoint total KVs: 13835275
+Catchpoint KVs processed: 13835275
+Catchpoint KVs verified: 13835275
+Catchpoint total blocks: 1321
+Catchpoint downloaded blocks: 1321
+Genesis ID: testnet-v1.0
+Genesis hash: hashHASHhashHASHhash
+```
+
+### Running
+
+```shell
+root@algon-0:/algorand/node# ./goal node status
+Last committed block: 45342234
+Time since last block: 0.0s
+Sync Time: 14.1s
+Last consensus protocol: https://github.com/algorandfoundation/specs/tree/XXXXXXXXXXXXXXX
+Next consensus protocol: https://github.com/algorandfoundation/specs/tree/XXXXXXXXXXXXXXX
+Round for next consensus protocol: 45342235
+Next consensus protocol supported: true
+Last Catchpoint: 
+Genesis ID: testnet-v1.0
+Genesis hash: hashHASHhashHASHhash
+```

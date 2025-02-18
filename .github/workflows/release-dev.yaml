@@ -1,9 +1,9 @@
-name: release
+name: release-dev
 
 on:
   push:
     branches:
-      - main
+      - dev
     paths:
       - 'charts/**'
       - 'docker/**'
@@ -36,8 +36,8 @@ jobs:
 
       - name: Get Chart version
         run: |
-          echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')" >> "$GITHUB_ENV"
-          echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')"
+          echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
+          echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
           echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')" >> "$GITHUB_ENV"
           echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')"
       - name: Build and push
@@ -50,9 +50,7 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ghcr.io/activadigital-it/algon:stable
-            ghcr.io/activadigital-it/algon:latest
-            ghcr.io/activadigital-it/algon:${{ env.CHART_VERSION }}
+            ghcr.io/activadigital-it/algon:${{ env.APP_VERSION }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -73,6 +71,12 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
 
+
+      - name: modify chart alpha version
+        run: |
+          CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha
+          sed -i s/version:.*/version:\ $CHART_VERSION/g charts/algon/Chart.yaml
+        
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.5.0
         env:
