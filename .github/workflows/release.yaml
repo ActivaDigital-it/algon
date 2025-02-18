@@ -52,7 +52,7 @@ jobs:
           tags: |
             ghcr.io/activadigital-it/algon:stable
             ghcr.io/activadigital-it/algon:latest
-            ghcr.io/activadigital-it/algon:${{ env.CHART_VERSION }}
+            ghcr.io/activadigital-it/algon:${{ env.APP_VERSION }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
