@@ -38,7 +38,8 @@ jobs:
         run: |
           echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')" >> "$GITHUB_ENV"
           echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')"
-
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')" >> "$GITHUB_ENV"
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')"
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v5
