@@ -38,11 +38,8 @@ jobs:
         run: |
           echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
           echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
-          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')" >> "$GITHUB_ENV"
-          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')"
-          CALCULATED_SHA=$(git rev-parse --short ${{ github.sha }})
-          echo "RELEVANT_SHA=${CALCULATED_SHA}" >> "$GITHUB_ENV"
-          echo "RELEVANT_SHA=${CALCULATED_SHA}"
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
 
       - name: Build and push
         id: docker_build
@@ -55,7 +52,8 @@ jobs:
           provenance: false
           tags: |
             ghcr.io/activadigital-it/algon:test
-            ghcr.io/activadigital-it/algon:${{ env.CHART_VERSION }}-${{ env.RELEVANT_SHA }}
+            ghcr.io/activadigital-it/algon:${{ env.APP_VERSION }}
+            ghcr.io/activadigital-it/algon:${{ env.APP_VERSION }}-${{ github.sha }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -80,22 +78,20 @@ jobs:
         run: |
           echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
           echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
-          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')" >> "$GITHUB_ENV"
-          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')"
-          CALCULATED_SHA=$(git rev-parse --short ${{ github.sha }})
-          echo "RELEVANT_SHA=${CALCULATED_SHA}" >> "$GITHUB_ENV"
-          echo "RELEVANT_SHA=${CALCULATED_SHA}"
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
 
       - name: modify chart version and appVersion
         run: |
           CHART_VERSION=${{ env.CHART_VERSION }}
-          RELEVANT_SHA=${{ env.RELEVANT_SHA }}
+          APP_VERSION=${{ env.APP_VERSION }}
           sed -i s/version:.*/version:\ $CHART_VERSION/g charts/algon/Chart.yaml
-          sed -i s/appVersion:.*/appVersion:\ $CHART_VERSION-$RELEVANT_SHA/g charts/algon/Chart.yaml
-        
+          sed -i s/appVersion:.*/appVersion:\ $APP_VERSION/g charts/algon/Chart.yaml
+
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.5.0
+        uses: helm/chart-releaser-action@v1
         with:
           mark_as_latest: false
+          skip_existing: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
