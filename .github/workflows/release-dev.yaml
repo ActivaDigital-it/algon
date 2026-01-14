@@ -81,12 +81,13 @@ jobs:
           echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
           echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
 
-      - name: modify chart version and appVersion
+      - name: Modify Chart version, appVersion and image pull policy
         run: |
           CHART_VERSION=${{ env.CHART_VERSION }}
           APP_VERSION=${{ env.APP_VERSION }}
           sed -i s/version:.*/version:\ $CHART_VERSION/g charts/algon/Chart.yaml
           sed -i s/appVersion:.*/appVersion:\ $APP_VERSION/g charts/algon/Chart.yaml
+          yq eval '.image.pullPolicy = "Always"' -i charts/algon/values.yaml
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1
