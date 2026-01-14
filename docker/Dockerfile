@@ -1,5 +1,4 @@
-FROM ubuntu:22.04
-# 4-0-1
+FROM ubuntu:24.04
 EXPOSE 8080 9100
 
 ENV DEBIAN_FRONTEND=noninteractive

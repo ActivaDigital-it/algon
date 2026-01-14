@@ -38,8 +38,9 @@ jobs:
         run: |
           echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
           echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
-          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')" >> "$GITHUB_ENV"
-          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')"
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
+
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v5
@@ -50,7 +51,9 @@ jobs:
           push: true
           provenance: false
           tags: |
+            ghcr.io/activadigital-it/algon:test
             ghcr.io/activadigital-it/algon:${{ env.APP_VERSION }}
+            ghcr.io/activadigital-it/algon:${{ env.APP_VERSION }}-${{ github.sha }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -71,13 +74,25 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
 
-
-      - name: modify chart alpha version
+      - name: Get Chart version
         run: |
-          CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha
+          echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
+          echo "CHART_VERSION=$(grep 'version:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha" >> "$GITHUB_ENV"
+          echo "APP_VERSION=$(grep 'appVersion:' charts/algon/Chart.yaml|cut -f2 -d ':'|tr -d ' ')-alpha"
+
+      - name: Modify Chart version, appVersion and image pull policy
+        run: |
+          CHART_VERSION=${{ env.CHART_VERSION }}
+          APP_VERSION=${{ env.APP_VERSION }}
           sed -i s/version:.*/version:\ $CHART_VERSION/g charts/algon/Chart.yaml
-        
+          sed -i s/appVersion:.*/appVersion:\ $APP_VERSION/g charts/algon/Chart.yaml
+          yq eval '.image.pullPolicy = "Always"' -i charts/algon/values.yaml
+
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.5.0
+        uses: helm/chart-releaser-action@v1
+        with:
+          mark_as_latest: false
+          skip_existing: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
